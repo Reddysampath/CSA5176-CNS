@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+void encrypt_func(char txt[], int s) {
+    char result[100]; 
+    int i;
+
+    for (i = 0; i < strlen(txt); i++) {
+        char charac = txt[i];
+        if (isupper(charac)) {
+            result[i] = (char)((charac + s - 65) % 26 + 65);
+        }
+        else if (islower(charac)) {
+            result[i] = (char)((charac + s - 97) % 26 + 97);
+        }
+        else {
+            result[i] = charac;
+        }
+    }
+    result[i] = '\0'; 
+    printf("Encrypted message: %s\n", result);
+}
+
+int main() {
+    char txt[100];
+    int s;
+    printf("Enter message: ");
+    fgets(txt, sizeof(txt), stdin);
+    txt[strcspn(txt, "\n")] = '\0';
+    printf("Enter key: ");
+    scanf("%d", &s);
+    printf("Shift pattern: %d\n", s);
+    encrypt_func(txt, s);
+    printf("Decrypted message: %s\n", txt);
+
+    return 0;
+}
